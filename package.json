@@ -12,7 +12,7 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\"",
     "prepare": "husky install",
-    "plop": "plop"
+    "create:resource": "plop resource"
   },
   "keywords": [],
   "author": "",
