@@ -4,26 +4,21 @@ import {
   type BalanceStatementParamsType,
 } from './types';
 
-const PROFILE_ID = configuration.WISE_PROFILE_ID;
+const WISE_PROFILE_ID = configuration.WISE_PROFILE_ID;
+const WISE_URL = configuration.WISE_URL;
 
 export class WiseApi {
   private token: string;
-  private test: boolean;
-  private baseUrl: string;
 
-  constructor({ token, test = false }: { token: string; test?: boolean }) {
+  constructor({ token }: { token: string }) {
     if (!token) {
       throw new Error('Token is required to initialize WiseApi');
     }
     this.token = token;
-    this.test = test;
-    this.baseUrl = test
-      ? 'https://api.sandbox.transferwise.tech'
-      : 'https://api.transferwise.com';
   }
 
   private async request(endpoint: string, method: string = 'GET', data?: any) {
-    const url = `${this.baseUrl}${endpoint}`;
+    const url = `${WISE_URL}${endpoint}`;
     const headers = {
       Authorization: `Bearer ${this.token}`,
       'Content-Type': 'application/json',
@@ -56,16 +51,18 @@ export class WiseApi {
 
   public balances = {
     get: async (id: number) => {
-      return this.request(`/v4/profiles/${PROFILE_ID}/balances/${id}`);
+      return this.request(`/v4/profiles/${WISE_PROFILE_ID}/balances/${id}`);
     },
     list: async () => {
-      return this.request(`/v4/profiles/${PROFILE_ID}/balances?types=STANDARD`);
+      return this.request(
+        `/v4/profiles/${WISE_PROFILE_ID}/balances?types=STANDARD`,
+      );
     },
     statements: async (id: number, params: BalanceStatementParamsType) => {
       const validatedParams = BalanceStatementParamsSchema.parse(params);
 
       return this.request(
-        `/v1/profiles/${PROFILE_ID}/balance-statements/${id}/statement.json?${new URLSearchParams(
+        `/v1/profiles/${WISE_PROFILE_ID}/balance-statements/${id}/statement.json?${new URLSearchParams(
           validatedParams,
         )}`,
       );
@@ -74,10 +71,10 @@ export class WiseApi {
 
   public cards = {
     get: async (id: number) => {
-      return this.request(`/v3/spend/profiles/${PROFILE_ID}/cards/${id}`);
+      return this.request(`/v3/spend/profiles/${WISE_PROFILE_ID}/cards/${id}`);
     },
     list: async () => {
-      return this.request(`/v3/spend/profiles/${PROFILE_ID}/cards`);
+      return this.request(`/v3/spend/profiles/${WISE_PROFILE_ID}/cards`);
     },
   };
 }
