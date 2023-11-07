@@ -8,7 +8,8 @@
     "start:watch": "NODE_ENV=development tsx watch src/index.ts",
     "start:prod": "NODE_ENV=production tsx src/index.ts",
     "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix"
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\""
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,9 @@
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
     "eslint": "^8.53.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "prettier": "^3.0.3",
     "tsx": "^3.14.0"
   },
   "dependencies": {
