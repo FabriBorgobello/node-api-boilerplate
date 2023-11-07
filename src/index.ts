@@ -1,8 +1,8 @@
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
-import { prettyJSON } from 'hono/pretty-json';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
+import { prettyJSON } from 'hono/pretty-json';
 import { secureHeaders } from 'hono/secure-headers';
 
 import resourceRouter from '@/resource/resource.controller';

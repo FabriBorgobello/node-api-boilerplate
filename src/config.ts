@@ -1,7 +1,8 @@
-import dotenv from 'dotenv';
+import { join } from 'node:path';
+
 import config from 'config';
+import dotenv from 'dotenv';
 import { z } from 'zod';
-import { join } from 'path';
 
 const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
 
