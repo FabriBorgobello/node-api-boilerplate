@@ -6,7 +6,9 @@
   "scripts": {
     "start": "NODE_ENV=development tsx src/index.ts",
     "start:watch": "NODE_ENV=development tsx watch src/index.ts",
-    "start:prod": "NODE_ENV=production tsx src/index.ts"
+    "start:prod": "NODE_ENV=production tsx src/index.ts",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix"
   },
   "keywords": [],
   "author": "",
@@ -14,13 +16,16 @@
   "devDependencies": {
     "@types/config": "^3.3.3",
     "@types/node": "^20.8.10",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
+    "eslint": "^8.53.0",
     "tsx": "^3.14.0"
   },
   "dependencies": {
     "@hono/node-server": "^1.2.0",
-    "hono": "^3.9.2",
     "config": "^3.3.9",
     "dotenv": "^16.3.1",
+    "hono": "^3.9.2",
     "zod": "^3.22.4"
   }
 }

@@ -19,7 +19,7 @@ app.use('*', secureHeaders());
 app.route('/resource', resourceRouter);
 
 // Default routes
-app.get('/', (c) => c.html(`<h1>Welcome to this API</h1>`));
+app.get('/', (c) => c.html('<h1>Welcome to this API</h1>'));
 app.get('/health', (c) => c.json({ status: 'ok' }));
 
 serve(app, ({ port }) => console.log(`Server listening on port ${port}`));
