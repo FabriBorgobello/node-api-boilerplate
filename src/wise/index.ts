@@ -1,3 +1,4 @@
+import { Hono } from 'hono';
 import { configuration } from '../config';
 import {
   BalanceStatementParamsSchema,
@@ -7,74 +8,83 @@ import {
 const WISE_PROFILE_ID = configuration.WISE_PROFILE_ID;
 const WISE_URL = configuration.WISE_URL;
 
-export class WiseApi {
-  private token: string;
+export const wiseRouter = new Hono();
 
-  constructor({ token }: { token: string }) {
-    if (!token) {
-      throw new Error('Token is required to initialize WiseApi');
-    }
-    this.token = token;
-  }
+wiseRouter.get('/', (c) => c.json({ message: 'Wise API' }));
+wiseRouter.get('/:id', (c) => {
+  // GET /book/:id
+  const id = c.req.param('id');
+  return c.json({ message: `Wise API ${id}` });
+});
 
-  private async request(endpoint: string, method: string = 'GET', data?: any) {
-    const url = `${WISE_URL}${endpoint}`;
-    const headers = {
-      Authorization: `Bearer ${this.token}`,
-      'Content-Type': 'application/json',
-    };
+// export class WiseApi {
+//   private token: string;
 
-    let options: RequestInit = {
-      method,
-      headers,
-      body: data ? JSON.stringify(data) : null,
-    };
+//   constructor({ token }: { token: string }) {
+//     if (!token) {
+//       throw new Error('Token is required to initialize WiseApi');
+//     }
+//     this.token = token;
+//   }
 
-    if (method === 'GET') {
-      options.body = null;
-    }
+//   private async request(endpoint: string, method: string = 'GET', data?: any) {
+//     const url = `${WISE_URL}${endpoint}`;
+//     const headers = {
+//       Authorization: `Bearer ${this.token}`,
+//       'Content-Type': 'application/json',
+//     };
 
-    try {
-      const response = await fetch(url, options);
-      if (!response.ok) {
-        const error = new Error(
-          `HTTP Error Response: ${response.status} ${response.statusText}`,
-        );
-        throw error;
-      }
-      return response.json();
-    } catch (error) {
-      console.error('API request error:', error);
-      throw error;
-    }
-  }
+//     let options: RequestInit = {
+//       method,
+//       headers,
+//       body: data ? JSON.stringify(data) : null,
+//     };
 
-  public balances = {
-    get: async (id: number) => {
-      return this.request(`/v4/profiles/${WISE_PROFILE_ID}/balances/${id}`);
-    },
-    list: async () => {
-      return this.request(
-        `/v4/profiles/${WISE_PROFILE_ID}/balances?types=STANDARD`,
-      );
-    },
-    statements: async (id: number, params: BalanceStatementParamsType) => {
-      const validatedParams = BalanceStatementParamsSchema.parse(params);
+//     if (method === 'GET') {
+//       options.body = null;
+//     }
 
-      return this.request(
-        `/v1/profiles/${WISE_PROFILE_ID}/balance-statements/${id}/statement.json?${new URLSearchParams(
-          validatedParams,
-        )}`,
-      );
-    },
-  };
+//     try {
+//       const response = await fetch(url, options);
+//       if (!response.ok) {
+//         const error = new Error(
+//           `HTTP Error Response: ${response.status} ${response.statusText}`,
+//         );
+//         throw error;
+//       }
+//       return response.json();
+//     } catch (error) {
+//       console.error('API request error:', error);
+//       throw error;
+//     }
+//   }
 
-  public cards = {
-    get: async (id: number) => {
-      return this.request(`/v3/spend/profiles/${WISE_PROFILE_ID}/cards/${id}`);
-    },
-    list: async () => {
-      return this.request(`/v3/spend/profiles/${WISE_PROFILE_ID}/cards`);
-    },
-  };
-}
+//   public balances = {
+//     get: async (id: number) => {
+//       return this.request(`/v4/profiles/${WISE_PROFILE_ID}/balances/${id}`);
+//     },
+//     list: async () => {
+//       return this.request(
+//         `/v4/profiles/${WISE_PROFILE_ID}/balances?types=STANDARD`,
+//       );
+//     },
+//     statements: async (id: number, params: BalanceStatementParamsType) => {
+//       const validatedParams = BalanceStatementParamsSchema.parse(params);
+
+//       return this.request(
+//         `/v1/profiles/${WISE_PROFILE_ID}/balance-statements/${id}/statement.json?${new URLSearchParams(
+//           validatedParams,
+//         )}`,
+//       );
+//     },
+//   };
+
+//   public cards = {
+//     get: async (id: number) => {
+//       return this.request(`/v3/spend/profiles/${WISE_PROFILE_ID}/cards/${id}`);
+//     },
+//     list: async () => {
+//       return this.request(`/v3/spend/profiles/${WISE_PROFILE_ID}/cards`);
+//     },
+//   };
+// }

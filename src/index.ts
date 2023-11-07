@@ -1,18 +1,14 @@
-import { configuration } from './config';
-import { WiseApi } from './wise';
+import { serve } from '@hono/node-server';
+import { Hono } from 'hono';
+import { wiseRouter } from './wise';
 
-const wise = new WiseApi({ token: configuration.WISE_TOKEN });
+const app = new Hono();
 
-console.log(configuration);
+// Routes
+app.route('/wise', wiseRouter);
 
-async function main() {
-  // const data = await wise.balances.statements(177349, {
-  //   currency: 'USD',
-  //   intervalStart: '2023-11-01T00:00:00.000Z',
-  //   intervalEnd: new Date().toISOString(),
-  //   type: 'COMPACT',
-  // });
-  // console.log(data);
-}
+// Default routes
+app.get('/', (c) => c.html(`<h1>Welcome to the Expense Tracker API</h1>`));
+app.get('/health', (c) => c.json({ status: 'ok' }));
 
-main();
+serve(app, ({ port }) => console.log(`Server listening on port ${port}`));
