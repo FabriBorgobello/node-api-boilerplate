@@ -9,7 +9,8 @@
     "start:prod": "NODE_ENV=production tsx src/index.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
-    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\""
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\"",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +24,7 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-prettier": "^5.0.1",
+    "husky": "^8.0.3",
     "prettier": "^3.0.3",
     "tsx": "^3.14.0"
   },
