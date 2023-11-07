@@ -12,10 +12,8 @@ dotenv.config({
 
 const schema = z.object({
   NODE_ENV: z.enum(['development', 'production']).default('development'),
-  WISE_TOKEN: z.string(),
-  WISE_PROFILE_ID: z.string(),
-  WISE_URL: z.string().url(),
   DEBUG: z.string().transform((val) => val === 'true'),
+  RESOURCE_URL: z.string().url(),
 });
 
 const validatedConfig = schema.safeParse({ ...process.env, ...config });

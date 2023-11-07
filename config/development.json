@@ -1,3 +1,4 @@
 {
-  "WISE_URL": "https://api.sandbox.transferwise.tech"
+  "RESOURCE_URL": "https://fake-development-api.com",
+  "DEBUG": true
 }

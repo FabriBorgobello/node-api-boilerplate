@@ -1,3 +1,4 @@
 {
-  "WISE_URL": "https://api.transferwise.com"
+  "RESOURCE_URL": "https://fake-production-api.com",
+  "DEBUG": false
 }
