@@ -2,6 +2,7 @@
   "name": "api-boilerplate",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=development tsx src/index.ts",
@@ -10,7 +11,8 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\"",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "plop": "plop"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +27,7 @@
     "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-prettier": "^5.0.1",
     "husky": "^8.0.3",
+    "plop": "^4.0.0",
     "prettier": "^3.0.3",
     "tsx": "^3.14.0"
   },

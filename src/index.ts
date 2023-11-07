@@ -5,7 +5,7 @@ import { logger } from 'hono/logger';
 import { prettyJSON } from 'hono/pretty-json';
 import { secureHeaders } from 'hono/secure-headers';
 
-import resourceRouter from '@/resource/resource.controller';
+import routes from './routes';
 
 const app = new Hono();
 
@@ -16,7 +16,7 @@ app.use('*', logger());
 app.use('*', secureHeaders());
 
 // Routes
-app.route('/resource', resourceRouter);
+app.route('/', routes);
 
 // Default routes
 app.get('/', (c) => c.html('<h1>Welcome to this API</h1>'));
